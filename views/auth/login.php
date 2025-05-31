@@ -3,104 +3,171 @@ $pageTitle = 'Login';
 require_once __DIR__ . '/../layouts/header.php';
 ?>
 
-<div class="min-h-screen bg-gray-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-    <div class="sm:mx-auto sm:w-full sm:max-w-md">
-        <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Sign in to your account
-        </h2>
-        <p class="mt-2 text-center text-sm text-gray-600">
-            Or
-            <a href="/register" class="font-medium text-indigo-600 hover:text-indigo-500">
-                create a new account
-            </a>
-        </p>
-    </div>
+<div class="auth-container">
+    <div class="auth-card fade-in">
+        <!-- Header -->
+        <div class="auth-header">
+            <div style="font-size: 3rem; margin-bottom: 1rem;">
+                <i class="fas fa-sign-in-alt"></i>
+            </div>
+            <h1 style="font-size: 1.75rem; font-weight: 700; margin-bottom: 0.5rem;">
+                Welcome Back
+            </h1>
+            <p style="opacity: 0.9; font-size: 1rem;">
+                Sign in to continue trading
+            </p>
+        </div>
 
-    <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-            <form id="loginForm" class="space-y-6" action="/login" method="POST">
-                <div>
-                    <label for="email" class="block text-sm font-medium text-gray-700">
-                        Email address
+        <!-- Body -->
+        <div class="auth-body">
+            <form id="loginForm" action="/login" method="POST">
+                <div class="form-floating">
+                    <input type="email" id="email" name="email" placeholder="Email Address" required>
+                    <i class="fas fa-envelope form-icon"></i>
+                    <div class="error-message" data-field="email"></div>
+                </div>
+
+                <div class="form-floating">
+                    <input type="password" id="password" name="password" placeholder="Password" required>
+                    <i class="fas fa-lock form-icon"></i>
+                    <div class="error-message" data-field="password"></div>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                    <label style="display: flex; align-items: center; cursor: pointer; color: var(--gray-600);">
+                        <input type="checkbox" name="remember_me" style="margin-right: 0.5rem;">
+                        Remember me
                     </label>
-                    <div class="mt-1">
-                        <input id="email" name="email" type="email" autocomplete="email" required
-                            class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                    </div>
-                    <div class="error-message text-red-500 text-sm mt-1" data-field="email"></div>
+                    <a href="/forgot-password" style="color: var(--primary-600); text-decoration: none; font-size: 0.9rem;">
+                        Forgot password?
+                    </a>
                 </div>
 
-                <div>
-                    <label for="password" class="block text-sm font-medium text-gray-700">
-                        Password
-                    </label>
-                    <div class="mt-1">
-                        <input id="password" name="password" type="password" autocomplete="current-password" required
-                            class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                    </div>
-                    <div class="error-message text-red-500 text-sm mt-1" data-field="password"></div>
-                </div>
-
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center">
-                        <input id="remember_me" name="remember_me" type="checkbox"
-                            class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
-                        <label for="remember_me" class="ml-2 block text-sm text-gray-900">
-                            Remember me
-                        </label>
-                    </div>
-
-                    <div class="text-sm">
-                        <a href="/forgot-password" class="font-medium text-indigo-600 hover:text-indigo-500">
-                            Forgot your password?
-                        </a>
-                    </div>
-                </div>
-
-                <div>
-                    <button type="submit"
-                        class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                        Sign in
-                    </button>
-                </div>
+                <button type="submit" class="btn btn-primary btn-auth">
+                    <i class="fas fa-sign-in-alt" style="margin-right: 0.5rem;"></i>
+                    Sign In
+                </button>
             </form>
+
+            <div class="divider">
+                <span>or</span>
+            </div>
+
+            <div style="text-align: center;">
+                <a href="#" class="btn btn-secondary" style="width: 100%; margin-bottom: 1rem;">
+                    <i class="fab fa-google" style="margin-right: 0.5rem;"></i>
+                    Continue with Google
+                </a>
+                <p style="font-size: 0.85rem; color: var(--gray-500);">
+                    No smartphone? Dial <strong>*134*555#</strong> for USSD access
+                </p>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="auth-footer">
+            <p style="margin: 0; color: var(--gray-600);">
+                Don't have an account? 
+                <a href="/register" style="color: var(--primary-600); text-decoration: none; font-weight: 600;">
+                    Sign up here
+                </a>
+            </p>
         </div>
     </div>
 </div>
 
 <script>
-document.getElementById('loginForm').addEventListener('submit', async (e) => {
-    e.preventDefault();
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('loginForm');
     
-    // Clear previous errors
-    document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
+    // Form submission
+    form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        // Clear previous errors
+        clearErrors();
+        
+        // Show loading state
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const originalText = submitBtn.innerHTML;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin" style="margin-right: 0.5rem;"></i>Signing In...';
+        submitBtn.disabled = true;
+        
+        const formData = new FormData(form);
+        
+        try {
+            const response = await fetch('/login', {
+                method: 'POST',
+                body: formData
+            });
+            
+            const data = await response.json();
+            
+            if (data.success) {
+                showSuccess('Login successful! Redirecting...');
+                setTimeout(() => {
+                    window.location.href = data.redirect || '/home';
+                }, 1500);
+            } else {
+                if (data.errors) {
+                    Object.entries(data.errors).forEach(([field, message]) => {
+                        showError(field, message);
+                    });
+                } else {
+                    showError('general', data.message || 'Login failed');
+                }
+            }
+        } catch (error) {
+            showError('general', 'Network error. Please try again.');
+        } finally {
+            // Restore button
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+        }
+    });
     
-    try {
-        const formData = new FormData(e.target);
-        const response = await fetch('/login', {
-            method: 'POST',
-            body: formData
+    function showError(field, message) {
+        const errorElement = document.querySelector(`.error-message[data-field="${field}"]`);
+        if (errorElement) {
+            errorElement.textContent = message;
+            errorElement.style.display = 'block';
+        } else {
+            // Show general error at top of form
+            const generalError = document.createElement('div');
+            generalError.className = 'error-message';
+            generalError.style.display = 'block';
+            generalError.style.marginBottom = '1rem';
+            generalError.style.padding = '0.75rem';
+            generalError.style.background = 'var(--error-50)';
+            generalError.style.border = '1px solid var(--error-200)';
+            generalError.style.borderRadius = 'var(--radius-md)';
+            generalError.textContent = message;
+            
+            form.insertBefore(generalError, form.firstChild);
+        }
+    }
+    
+    function clearErrors() {
+        document.querySelectorAll('.error-message').forEach(el => {
+            el.style.display = 'none';
         });
         
-        const data = await response.json();
+        // Remove general errors
+        const generalErrors = form.querySelectorAll('.error-message:not([data-field])');
+        generalErrors.forEach(el => el.remove());
+    }
+    
+    function showSuccess(message) {
+        const successDiv = document.createElement('div');
+        successDiv.className = 'success-message';
+        successDiv.innerHTML = `
+            <i class="fas fa-check-circle" style="margin-right: 0.5rem;"></i>
+            ${message}
+        `;
         
-        if (data.success) {
-            window.location.href = data.redirect;
-        } else {
-            // Display validation errors
-            if (data.errors) {
-                Object.entries(data.errors).forEach(([field, message]) => {
-                    const errorElement = document.querySelector(`.error-message[data-field="${field}"]`);
-                    if (errorElement) {
-                        errorElement.textContent = message;
-                    }
-                });
-            }
-        }
-    } catch (error) {
-        console.error('Error:', error);
+        form.parentNode.insertBefore(successDiv, form);
     }
 });
 </script>
 
-<?php require_once __DIR__ . '/../layouts/footer.php'; ?> 
+<?php require_once __DIR__ . '/../layouts/footer.php'; ?>

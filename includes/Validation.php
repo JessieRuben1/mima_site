@@ -13,7 +13,11 @@ class Validation {
         return $this;
     }
 
-    public function validate() {
+    public function validate($data = null) {
+        if ($data !== null) {
+            $this->data = $data;
+        }
+        
         foreach ($this->rules as $field => $rules) {
             $rules = explode('|', $rules);
             
@@ -152,4 +156,4 @@ class Validation {
     public function hasErrors() {
         return !empty($this->errors);
     }
-} 
+}

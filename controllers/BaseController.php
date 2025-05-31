@@ -14,7 +14,11 @@ class BaseController {
     }
 
     protected function initUser() {
-        session_start();
+        // Only start session if one isn't already active
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+        
         if (isset($_SESSION['user_id'])) {
             // TODO: Load user from database
             $this->user = [
@@ -41,7 +45,7 @@ class BaseController {
 
     protected function requireAuth() {
         if (!$this->isAuthenticated()) {
-            $this->redirect('/login.php');
+            $this->redirect('/login');
         }
     }
 
@@ -54,7 +58,7 @@ class BaseController {
 
     protected function validate($data, $rules) {
         $this->validation->setRules($rules);
-        return $this->validation->validate();
+        return $this->validation->validate($data);
     }
 
     protected function getValidationErrors() {
@@ -111,4 +115,4 @@ class BaseController {
 
         return $filename;
     }
-} 
+}

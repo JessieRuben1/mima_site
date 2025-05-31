@@ -24,6 +24,11 @@ class Database {
         }
     }
 
+    // Add this method that User.php is looking for
+    public function getConnection() {
+        return $this->conn;
+    }
+
     public function query($sql, $params = []) {
         try {
             $stmt = $this->conn->prepare($sql);
@@ -50,4 +55,4 @@ class Database {
         return $this->conn->rollBack();
     }
 }
-?> 
+?>

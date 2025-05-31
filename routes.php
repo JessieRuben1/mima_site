@@ -11,126 +11,97 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 // Get the request URI and method
-$request_uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+$request_uri = $_SERVER['REQUEST_URI'];
 $request_method = $_SERVER['REQUEST_METHOD'];
 
-// Remove base path from URI if needed
+// Remove query string from URI
+$request_uri = strtok($request_uri, '?');
+
+// Remove base path from URI
 $base_path = '/Mima-Website';
 if (strpos($request_uri, $base_path) === 0) {
     $request_uri = substr($request_uri, strlen($base_path));
 }
 
 // Ensure URI starts with /
-if (empty($request_uri) || $request_uri === '') {
+if (empty($request_uri)) {
     $request_uri = '/';
 }
 
-// Debug: Log the request URI
-error_log("Request URI: " . $request_uri);
+// Debug: Log the request
+error_log("Processing URI: " . $request_uri);
 
-// Define routes
+// Don't include header here - let each view handle it
+
+// Route handling
 switch ($request_uri) {
-    // Home and Landing Routes
     case '/':
-    case '':
-    case '/index':
-        // Show landing page for non-authenticated users, home for authenticated
+    case '/index.php':
+    case '/routes.php':
+        // Check if user is logged in
         if (isset($_SESSION['user_id'])) {
-            // User is logged in - show home page
-            require_once __DIR__ . '/controllers/HomeController.php';
-            $home = new HomeController();
-            $home->index();
+            require_once __DIR__ . '/views/home.php';
         } else {
-            // User is not logged in - show landing page
             require_once __DIR__ . '/views/index.php';
         }
         break;
-
+        
     case '/home':
-        require_once __DIR__ . '/controllers/HomeController.php';
-        $home = new HomeController();
-        $home->index();
+        require_once __DIR__ . '/views/home.php';
         break;
-
-    // Authentication Routes
-    case '/register':
-        if ($request_method === 'POST') {
-            require_once __DIR__ . '/controllers/AuthController.php';
-            $auth = new AuthController();
-            $auth->register();
-        } else {
-            require_once __DIR__ . '/views/auth/register.php';
-        }
-        break;
-
+        
     case '/login':
-        if ($request_method === 'POST') {
-            require_once __DIR__ . '/controllers/AuthController.php';
-            $auth = new AuthController();
-            $auth->login();
-        } else {
-            require_once __DIR__ . '/views/auth/login.php';
-        }
+        require_once __DIR__ . '/views/auth/login.php';
         break;
-
+        
+    case '/register':
+        require_once __DIR__ . '/views/auth/register.php';
+        break;
+        
     case '/logout':
-        require_once __DIR__ . '/controllers/AuthController.php';
-        $auth = new AuthController();
-        $auth->logout();
+        session_destroy();
+        header("Location: /Mima-Website/");
+        exit;
         break;
-
-    case '/forgot-password':
-        if ($request_method === 'POST') {
-            require_once __DIR__ . '/controllers/AuthController.php';
-            $auth = new AuthController();
-            $auth->forgotPassword();
-        } else {
-            require_once __DIR__ . '/views/auth/forgot-password.php';
-        }
-        break;
-
-    // Product Routes
+        
     case '/products':
-        echo "<div class='container' style='padding: 2rem; text-align: center;'>";
-        echo "<h1>Products Coming Soon!</h1>";
-        echo "<p>This will show all products.</p>";
-        echo '<a href="/Mima-Website/" class="btn btn-primary">← Back to Home</a>';
-        echo "</div>";
+        echo '<div class="container" style="padding: 2rem; text-align: center;">';
+        echo '<h1>Products Page</h1>';
+        echo '<p>Products listing will be displayed here.</p>';
+        echo '<a href="/Mima-Website/" class="btn btn-primary">Back to Home</a>';
+        echo '</div>';
         break;
-
-    case '/products/create':
-        echo "<div class='container' style='padding: 2rem; text-align: center;'>";
-        echo "<h1>Sell Your Products</h1>";
-        echo "<p>Product creation form will be here.</p>";
-        echo '<a href="/Mima-Website/" class="btn btn-primary">← Back to Home</a>';
-        echo "</div>";
-        break;
-
-    // Help Route
+        
     case '/help':
-        echo "<div class='container' style='padding: 2rem; text-align: center;'>";
-        echo "<h1>Help Center</h1>";
-        echo "<p>Help documentation will be here.</p>";
-        echo '<a href="/Mima-Website/" class="btn btn-primary">← Back to Home</a>';
-        echo "</div>";
+        echo '<div class="container" style="padding: 2rem; text-align: center;">';
+        echo '<h1>Help Center</h1>';
+        echo '<p>Help and documentation will be displayed here.</p>';
+        echo '<a href="/Mima-Website/" class="btn btn-primary">Back to Home</a>';
+        echo '</div>';
         break;
-
-    // Profile Route
+        
     case '/profile':
         if (!isset($_SESSION['user_id'])) {
             header("Location: /Mima-Website/login");
             exit;
         }
-        echo "<div class='container' style='padding: 2rem; text-align: center;'>";
-        echo "<h1>My Profile</h1>";
-        echo "<p>Welcome, " . htmlspecialchars($_SESSION['user_name'] ?? 'User') . "!</p>";
-        echo '<a href="/Mima-Website/" class="btn btn-primary">← Back to Home</a>';
-        echo "</div>";
+        echo '<div class="container" style="padding: 2rem; text-align: center;">';
+        echo '<h1>My Profile</h1>';
+        echo '<p>Welcome, ' . htmlspecialchars($_SESSION['user_name'] ?? 'User') . '!</p>';
+        echo '<a href="/Mima-Website/" class="btn btn-primary">Back to Home</a>';
+        echo '</div>';
         break;
-
+        
     default:
         // 404 Not Found
         header("HTTP/1.0 404 Not Found");
-        require_once __DIR__ . '/views/404.php';
+        echo '<div class="container" style="padding: 2rem; text-align: center;">';
+        echo '<h1>404 - Page Not Found</h1>';
+        echo '<p>The page you are looking for does not exist.</p>';
+        echo '<a href="/Mima-Website/" class="btn btn-primary">Go to Home</a>';
+        echo '</div>';
         break;
 }
+
+// Don't include footer here - let each view handle it
+?>

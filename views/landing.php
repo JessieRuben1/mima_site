@@ -239,11 +239,11 @@ require_once __DIR__ . '/layouts/header.php';
             </p>
             
             <div class="cta-buttons">
-                <a href="/register" class="btn-hero btn-hero-primary">
+                <a href="<?php echo SITE_URL; ?>/register" class="btn-hero btn-hero-primary">
                     <i class="fas fa-rocket"></i>
-                    Start Trading Today
+                    Start Buttering Today
                 </a>
-                <a href="/products" class="btn-hero btn-hero-secondary">
+                <a href="<?php echo SITE_URL; ?>/products" class="btn-hero btn-hero-secondary">
                     <i class="fas fa-search"></i>
                     Explore Products
                 </a>
@@ -252,7 +252,7 @@ require_once __DIR__ . '/layouts/header.php';
             <div class="hero-stats">
                 <div class="stat-item">
                     <span class="stat-number">1,000+</span>
-                    <span class="stat-label">Active Traders</span>
+                    <span class="stat-label">Active Sellers</span>
                 </div>
                 <div class="stat-item">
                     <span class="stat-number">5,000+</span>
@@ -260,7 +260,7 @@ require_once __DIR__ . '/layouts/header.php';
                 </div>
                 <div class="stat-item">
                     <span class="stat-number">R2M+</span>
-                    <span class="stat-label">Total Traded</span>
+                    <span class="stat-label">Total Traded Goods & Services</span>
                 </div>
                 <div class="stat-item">
                     <span class="stat-number">98%</span>

@@ -3,8 +3,10 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-// Session configuration
-session_start();
+// Session configuration - Only start if not already started
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 // Site configuration
 define('SITE_NAME', 'Trade with Me');
@@ -19,4 +21,4 @@ define('MODELS_PATH', ROOT_PATH . '/models');
 
 // Security configuration
 define('HASH_COST', 12); // For password hashing
-?> 
+?>

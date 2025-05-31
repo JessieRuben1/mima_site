@@ -1,4 +1,4 @@
-<?php
+<!-- <?php
 $pageTitle = '404 Not Found';
 require_once __DIR__ . '/layouts/header.php';
 ?>
@@ -19,4 +19,4 @@ require_once __DIR__ . '/layouts/header.php';
     </div>
 </div>
 
-<?php require_once __DIR__ . '/layouts/footer.php'; ?> 
+<?php require_once __DIR__ . '/layouts/footer.php'; ?>  -->

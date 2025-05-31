@@ -1,6 +1,9 @@
 RewriteEngine On
 RewriteBase /Mima-Website/
 
+# Handle direct access to routes.php as root
+RewriteRule ^routes\.php$ / [R=301,L]
+
 # If the request is not for a file or directory
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
@@ -14,17 +17,27 @@ Options -Indexes
 # Set default character set
 AddDefaultCharset UTF-8
 
-# Enable CORS
-Header set Access-Control-Allow-Origin "*"
-Header set Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
-Header set Access-Control-Allow-Headers "Content-Type, Authorization"
+# Enable CORS (if mod_headers is available)
+<IfModule mod_headers.c>
+    Header set Access-Control-Allow-Origin "*"
+    Header set Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
+    Header set Access-Control-Allow-Headers "Content-Type, Authorization"
+</IfModule>
 
 # Deny access to sensitive files
 <FilesMatch "^\.">
-    Order allow,deny
-    Deny from all
+    Require all denied
 </FilesMatch>
 
-# PHP error handling
-php_flag display_errors off
-php_value error_log logs/php_errors.log 
+<FilesMatch "\.(sql|log|conf)$">
+    Require all denied
+</FilesMatch>
+
+# Allow access to main files
+<Files "routes.php">
+    Require all granted
+</Files>
+
+<Files "index.php">
+    Require all granted
+</Files>

@@ -3,6 +3,144 @@ $pageTitle = 'Login';
 require_once __DIR__ . '/../layouts/header.php';
 ?>
 
+<style>
+/* Auth page specific styles */
+.auth-container {
+    min-height: calc(100vh - var(--header-height));
+    background: linear-gradient(135deg, var(--primary-50) 0%, var(--success-50) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+}
+
+.auth-card {
+    background: white;
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-xl);
+    width: 100%;
+    max-width: 500px;
+    overflow: hidden;
+}
+
+.auth-header {
+    background: linear-gradient(135deg, var(--primary-600) 0%, var(--primary-700) 100%);
+    color: white;
+    padding: 2rem;
+    text-align: center;
+}
+
+.auth-body {
+    padding: 2rem;
+}
+
+.auth-footer {
+    background: var(--gray-50);
+    padding: 1.5rem 2rem;
+    text-align: center;
+    border-top: 1px solid var(--gray-200);
+}
+
+.form-floating {
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+
+.form-floating input {
+    width: 100%;
+    padding: 1rem 1rem 1rem 3rem;
+    border: 2px solid var(--gray-200);
+    border-radius: var(--radius-md);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: white;
+}
+
+.form-floating input:focus {
+    border-color: var(--primary-500);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    outline: none;
+}
+
+.form-floating .form-icon {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--gray-400);
+    transition: color 0.3s ease;
+}
+
+.form-floating input:focus + .form-icon {
+    color: var(--primary-500);
+}
+
+.error-message {
+    color: var(--error-500);
+    font-size: 0.875rem;
+    margin-top: 0.5rem;
+    display: none;
+}
+
+.success-message {
+    background: var(--success-50);
+    border: 1px solid var(--success-200);
+    color: var(--success-800);
+    padding: 1rem;
+    border-radius: var(--radius-md);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+}
+
+.btn-auth {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: var(--radius-md);
+    transition: all 0.3s ease;
+}
+
+.divider {
+    position: relative;
+    text-align: center;
+    margin: 1.5rem 0;
+}
+
+.divider::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: var(--gray-200);
+}
+
+.divider span {
+    background: white;
+    padding: 0 1rem;
+    color: var(--gray-500);
+    font-size: 0.875rem;
+}
+
+@media (max-width: 640px) {
+    .auth-container {
+        padding: 1rem;
+    }
+    
+    .auth-header,
+    .auth-body {
+        padding: 1.5rem;
+    }
+    
+    .auth-footer {
+        padding: 1.5rem;
+    }
+}
+</style>
+
 <div class="auth-container">
     <div class="auth-card fade-in">
         <!-- Header -->

@@ -1,5 +1,15 @@
-<!-- <?php
-echo "<h1>🎉 Trade with Me is Working!</h1>";
-echo "<p>Project successfully moved to XAMPP!</p>";
-echo '<p><a href="routes.php">Continue to Routes</a></p>';
-?> -->
+<?php
+// Start session
+session_start();
+
+// Check if user is logged in and redirect accordingly
+if (isset($_SESSION['user_id'])) {
+    // User is logged in - show home page
+    require_once __DIR__ . '/controllers/HomeController.php';
+    $home = new HomeController();
+    $home->index();
+} else {
+    // User is not logged in - show landing page
+    require_once __DIR__ . '/views/index.php';
+}
+?>

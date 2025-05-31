@@ -1,6 +1,6 @@
 <?php
 $page_title = "Home";
-require_once __DIR__ . '/../includes/header.php';
+require_once __DIR__ . '/../layouts/header.php';
 ?>
 
 <!-- Hero Section -->
@@ -234,4 +234,4 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
-<?php require_once __DIR__ . '/../includes/footer.php'; ?>
+<?php require_once __DIR__ . '/../layouts/footer.php'; ?>

@@ -18,28 +18,28 @@ if (session_status() === PHP_SESSION_NONE) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="<?php echo SITE_URL; ?>/assets/css/style.css">
+    <link rel="stylesheet" href="/Mima-Website/assets/css/style.css">
 </head>
 <body>
     <!-- Navigation -->
     <nav class="navbar">
         <div class="container">
-            <a class="navbar-brand" href="<?php echo SITE_URL; ?>">
+            <a class="navbar-brand" href="/Mima-Website/">
                 <i class="fas fa-handshake" style="margin-right: 0.5rem;"></i>
                 <?php echo SITE_NAME; ?>
             </a>
 
             <ul class="nav-links">
-                <li><a class="nav-link" href="<?php echo SITE_URL; ?>">Home</a></li>
-                <li><a class="nav-link" href="<?php echo SITE_URL; ?>/products">Products</a></li>
-                <li><a class="nav-link" href="<?php echo SITE_URL; ?>/help">Help</a></li>
+                <li><a class="nav-link" href="/Mima-Website/">Home</a></li>
+                <li><a class="nav-link" href="/Mima-Website/products">Products</a></li>
+                <li><a class="nav-link" href="/Mima-Website/help">Help</a></li>
                 
                 <?php if (isset($_SESSION['user_id'])): ?>
-                    <li><a class="nav-link" href="<?php echo SITE_URL; ?>/profile">Profile</a></li>
-                    <li><a class="nav-link" href="<?php echo SITE_URL; ?>/logout">Logout</a></li>
+                    <li><a class="nav-link" href="/Mima-Website/profile">Profile</a></li>
+                    <li><a class="nav-link" href="/Mima-Website/logout">Logout</a></li>
                 <?php else: ?>
-                    <li><a class="nav-link" href="<?php echo SITE_URL; ?>/login">Login</a></li>
-                    <li><a href="<?php echo SITE_URL; ?>/register" class="btn btn-primary btn-sm">Sign Up</a></li>
+                    <li><a class="nav-link" href="/Mima-Website/login">Login</a></li>
+                    <li><a href="/Mima-Website/register" class="btn btn-primary btn-sm">Sign Up</a></li>
                 <?php endif; ?>
             </ul>
         </div>

@@ -11,9 +11,9 @@
                 <div>
                     <h5>Quick Links</h5>
                     <ul style="list-style: none; padding: 0;">
-                        <li><a href="<?php echo SITE_URL; ?>">Home</a></li>
-                        <li><a href="<?php echo SITE_URL; ?>/products">Products</a></li>
-                        <li><a href="<?php echo SITE_URL; ?>/help">Help</a></li>
+                        <li><a href="/Mima-Website/">Home</a></li>
+                        <li><a href="/Mima-Website/products">Products</a></li>
+                        <li><a href="/Mima-Website/help">Help</a></li>
                     </ul>
                 </div>
                 <div>
